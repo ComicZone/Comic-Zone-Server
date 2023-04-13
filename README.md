@@ -18,7 +18,7 @@ If this is your first time here, first clone this repository if not skip this st
    ```
 then
    ```sh
-   cd Comic-Zone-Client && npm i
+   cd Comic-Zone-Server && npm i
    ```
 These are the steps to take:
 
