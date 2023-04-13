@@ -16,6 +16,10 @@ If this is your first time here, first clone this repository if not skip this st
    ```sh
    git clone https://github.com/Scrum-Team-C/Comic-Zone-Server
    ```
+then
+   ```sh
+   cd Comic-Zone-Client && npm i
+   ```
 These are the steps to take:
 
 If you are working on a page/feature for e.g Cart, 
