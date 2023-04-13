@@ -1,6 +1,6 @@
 const {model, Schema, Types} = require('mongoose');
 
-const ComicBookSchema = new Schema({
+const ComicSchema = new Schema({
     title: {
         type: String,
         unique: true,
@@ -56,5 +56,5 @@ const ComicBookSchema = new Schema({
     timestamps: true
 });
 
-const ComicBook = model("comicBook", ComicBookSchema);
-module.exports = ComicBook;
+const Comic = model("comic", ComicSchema);
+module.exports = Comic;
