@@ -1,0 +1,29 @@
+{
+  "name": "comic-zone-server",
+  "version": "1.0.0",
+  "description": "<br />\r We are working with a 3 branch structure: **Main, Develop and Features.**\r <br />\r -- The main branch is off limits for now. That's our live production branch\r <br />\r -- The develop branch is where we merge all our features/work together\r <br />\r -- The features branch is the one you would create for the feature you are working on.\r <br />",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Scrum-Team-C/Comic-Zone-Server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Scrum-Team-C/Comic-Zone-Server/issues"
+  },
+  "homepage": "https://github.com/Scrum-Team-C/Comic-Zone-Server#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "helmet": "^6.1.5",
+    "mongoose": "^7.0.3",
+    "morgan": "^1.10.0"
+  }
+}
