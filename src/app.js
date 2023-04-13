@@ -4,7 +4,7 @@ const helmet = require('helmet')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
 
-const connect = require('./config/db.config')
+const connect = require('./configs/db.config')
 
 dotenv.config()
 
