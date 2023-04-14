@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const helmet = require('helmet')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
+const rootRoute = require("./routes/index.route");
 
 const connect = require('./configs/db.config')
 
@@ -27,11 +28,13 @@ app.get('/api/v1/health', (req, res) => {
   res.status(200).json('Relax, brov. Everything is alright..');
 });
 
+app.use("/api/v1", rootRoute);
+
 // Our port is converted to a number
 const port = parseFloat(PORT) || 3000
 
 // Server listening for requests
 app.listen(port, '0.0.0.0', () => {
-  connect(Uri)
+  connect("mongodb+srv://admin:comicZoneKids@comiczone.nvzy7wp.mongodb.net?retryWrites=true&w=majority")
   console.log(`Server connected on port ${port}`)
 })

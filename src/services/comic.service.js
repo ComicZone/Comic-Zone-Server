@@ -1,14 +1,27 @@
 const Comic = require('../models/comic.model');
 
-export default class ComicService {
+class ComicService {
 
     //create comic
-    async createComic(comic) {
+    async create(comic) {
         return await Comic.create(comic);
     }
 
+    //get a comic name
+    async getComic(name) {
+        return await Comic.findOne({name: name, isDeleted: false}, V);
+    }
+
+    //get comics
+    async getAllComics() {
+        let filter = {};
+        filter.isDeleted = false;
+        //sorts in descending order based on the date created
+        return await User.find(filter, "-__v -password").sort({ createdAt: 'desc' });
+    }
+
     //get a comic by an id
-    async getComic(id) {
+    async getById(id) {
         return await Comic.findOne({id: id, isDeleted: false}, V);
     }
 
@@ -26,5 +39,6 @@ export default class ComicService {
             {isDeleted: true}
         );
     }
-
 }
+
+module.exports = new ComicService();
