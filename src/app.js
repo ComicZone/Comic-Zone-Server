@@ -5,6 +5,7 @@ const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
 
 const connect = require('./configs/db.config')
+const router = require("./routes/route")
 
 dotenv.config()
 
@@ -21,6 +22,8 @@ app.use(helmet())
 
 // Allows us to access a user's token stored as a cookie
 app.use(cookieParser())
+
+app.use('/api/v1', router)
 
 // Define a health check route that responds with a 200 status code
 app.get('/api/v1/health', (req, res) => {
