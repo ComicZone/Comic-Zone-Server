@@ -38,6 +38,6 @@ const port = parseFloat(PORT) || 3000
 
 // Server listening for requests
 app.listen(port, '0.0.0.0', () => {
-  connect("mongodb+srv://admin:comicZoneKids@comiczone.nvzy7wp.mongodb.net?retryWrites=true&w=majority")
+  connect(Uri)
   console.log(`Server connected on port ${port}`)
 })
