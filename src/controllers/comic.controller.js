@@ -1,5 +1,6 @@
 const {create, getById, getComic, getAllComics, editById, deleteById} = require("../services/comic.service");
 const isObjectId = require("../utils/isValidObjectId.util");
+const {category} = require("../services/create.service");
 
 class Controller {
 
@@ -7,16 +8,34 @@ class Controller {
     async addComic(req, res) {
         const body = req.body;
         //check to see if a comic with same name exists
-        const existingComic = await getComic({name: body.name.toLowerCase()});
+        const existingComic = await getComic({name: body.name});
         //sends an error if the name exists
         if(existingComic) {
             return res.status(409)
-                .send({
-                    message: "Name already exists",
-                    success: false
-                });
+            .send({
+                message: "Name already exists",
+                success: false
+            });
         }
-        //create a comic if the name doesn't exist
+
+        //validates the categoryId
+        const {categoryId} = body;
+        // const _category = await category.find({ _id: categoryId, deleted: false });
+        // if (!(_category)) {
+        //     return res.status(404).send({
+        //     success: false,
+        //     message: "CategoryId doesn't exist"
+        //     });
+        // }
+        //checks if the Id passed in is a valid Id
+        if(!isObjectId(categoryId)){
+            return res.status(404).send({
+                success: false,
+                message: "CategoryId is not a valid objectId"
+            });
+        }
+
+        //create a comic if the name doesn't exist and categoryId is valid
         const comic = await create(req.body);
         return res.status(201)
             .send({
@@ -33,7 +52,7 @@ class Controller {
         if(!isObjectId(id)){
             return res.status(404).send({
                 success: false,
-                message: NOT_ID
+                message: "Id entered is not a valid object Id"
             });
         }
         //check if comic exists
@@ -53,7 +72,7 @@ class Controller {
 
     //get comics
     async getComics(req, res) {
-        const comics = await getAllComics();
+        const comics = await getAllComics({});
         return res.status(200).send({
             success: true,
             message: "All comics fetched successfully",
@@ -62,8 +81,26 @@ class Controller {
     }
 
     //get comics by categories
-    async getByCategories(req, res) {
+    async getByCategoryId(req, res) {
+        const id = req.params.id;
+        const category = await find({_id: id});
+    
+        if (!category) {
+            return res.status(404).send({
+            success: false,
+            message: "Id inputted doesn't exist"
+            });
+        }
 
+        let filter = {
+            categoryId: id
+        }
+        const comics = await getAllComics(filter);
+        return res.status(200).send({
+            success: true,
+            message: "All comics fetched successfully",
+            returnedPosts: comics
+        });
     }
 
     //edit comics
@@ -74,7 +111,7 @@ class Controller {
         const existingComic = await getById(id);
         if(!existingComic) {
             return res.status(404).json({
-            message: INVALID_ID_ERROR,
+            message: "Id inputted doesn't exist",
             success: false
         })}
         // Fetching comic name from existing comic

@@ -5,16 +5,16 @@ const {
   getUser,
   getUsers,
 } = require("../controllers/user.controller");
-const authenticate = require("../middlewares/authentication");
-const { validateUserInputsToUpdate } = require('../middlewares/validation')
+const authenticate = require("../middlewares/authMiddlewares/authentication.middleware");
+const { validateUserInputsToUpdate } = require('../middlewares/validation.middleware')
 
 const router = Router();
 
-router.route("/").get(authenticate, getUsers);
+router.route("/").get(getUsers);
 router
   .route("/:id")
   .put(authenticate, validateUserInputsToUpdate, updateUser)
   .delete(authenticate, deleteUser)
-  .get(authenticate, getUser);
+  .get(getUser);
 
 module.exports = router;

@@ -1,7 +1,10 @@
 const BaseService = require("./base.service");
 
-// Creating a new user service
+// Creating a new user and category service
 const User = require("../models/user.model");
-const user = new BaseService(User);
+const Category = require("../models/category.model");
 
-module.exports = user;
+const user = new BaseService(User);
+const category = new BaseService(Category);
+
+module.exports = {user, category};

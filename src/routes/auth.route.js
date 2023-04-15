@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const { signup, login } = require('../controllers/auth.signin') 
 const logout = require('../controllers/auth.signout') 
-const { validateUserInputsToCreate } = require('../middlewares/validation')
+const { validateUserInputsToCreate } = require('../middlewares/validation.middleware')
 
 const router = Router()
 
