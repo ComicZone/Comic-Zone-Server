@@ -1,4 +1,4 @@
-const {addComic, getComic, getComics, editComic, deleteComic} = require("../controllers/comic.controller");
+const {addComic, getAComic, getComics, editComic, deleteComic} = require("../controllers/comic.controller");
 const express = require('express');
 const router = express.Router();
 const authenticate = require("../middlewares/authMiddlewares/authentication.middleware");
@@ -10,7 +10,7 @@ const { createSchema, editSchema } = require('../schemas/comic.schema');
 router.post("/", validate(createSchema), addComic);
 
 //get a comic
-router.get("/:id", getComic);
+router.get("/:id", getAComic);
 
 //get all comic
 router.get("/", getComics);
