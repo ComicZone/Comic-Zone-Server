@@ -42,4 +42,27 @@ const validateUserInputsToUpdate = (req, res, next) => {
   }
 };
 
-module.exports = { validateUserInputsToCreate, validateUserInputsToUpdate }
+//function created using currying method
+const validate = (schema) => {
+  return function(req, res, next) {
+    const {error, value} = schema.validate(req.body, {
+      abortEarly: false
+    });
+    if(error) {
+      let errorMessage = [];
+      error.details.forEach(detail => {
+        errorMessage.push(detail.message);
+      });
+      return res.status(403)
+        .send({
+          message: errorMessage,
+          success: false
+        });
+    }
+    //re-assign req.body to the validated sanitized value
+    req.body = value;
+    next();
+  }
+}
+
+module.exports = { validateUserInputsToCreate, validateUserInputsToUpdate, validate }

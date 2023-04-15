@@ -1,23 +1,24 @@
-const {addComic, getComic, getComics, getByCategories, editComic, deleteComic} = require("../controllers/comic.controller");
+const {addComic, getComic, getComics, editComic, deleteComic} = require("../controllers/comic.controller");
 const express = require('express');
 const router = express.Router();
+const authenticate = require("../middlewares/authMiddlewares/authentication.middleware");
+const {authorizeAdmin} = require("../middlewares/authMiddlewares/authorization.middleware");
+const { validate } = require('../middlewares/validation.middleware');
+const { createSchema, editSchema } = require('../schemas/comic.schema');
 
 //create a comic
-router.post("/", addComic);
+router.post("/", validate(createSchema), addComic);
 
 //get a comic
-router.get("/", getComic);
+router.get("/:id", getComic);
 
 //get all comic
 router.get("/", getComics);
 
-//get comic by id
-router.get("/", getByCategories);
-
 //edit a comic
-router.put("/", editComic);
+router.put("/:id", validate(editComic), authenticate, authorizeAdmin, editComic);
 
 //delete a comic
-router.delete("/", deleteComic);
+router.delete("/:id", validate(createSchema), authenticate, authorizeAdmin, deleteComic);
 
 module.exports = router;
