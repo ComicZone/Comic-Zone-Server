@@ -1,52 +1,58 @@
-const { model, Schema} = require('mongoose')
-const ObjectId = Schema.Types.ObjectId
+const { model, Schema } = require("mongoose");
+const ObjectId = Schema.Types.ObjectId;
 
-const userSchema = new Schema({
-    fullname:{
-        type: String,
-        lowercase: true,
-        required: true,
-        trim: true,
-        minlength: 3,
+const userSchema = new Schema(
+  {
+    fullname: {
+      type: String,
+      lowercase: true,
+      required: true,
+      trim: true,
+      minlength: 3,
     },
     email: {
-        type: String,
-        lowercase: true,
-        required: true,
-        unique: true,
-        trim: true
+      type: String,
+      lowercase: true,
+      required: true,
+      unique: true,
+      trim: true,
     },
     phoneNumber: {
-        type: String,
-        max: 11
+      type: Number,
+      minlength: 11,
+      maxlength: 11,
     },
     password: {
-        type: String,
-        required: true,
-        minlength: 8,
+      type: String,
+      required: true,
+      minlength: 8,
     },
-    cart: {
+    cart: [
+      {
         type: ObjectId,
-        ref: 'Cart'
-    },
-    catalog: [{
+        ref: "Comic",
+      },
+    ],
+    catalog: [
+      {
         type: ObjectId,
-        ref: 'Comics'
-    }],
-    downloaded: [{
-        type: ObjectId,
-        ref: 'Comics'
-    }],
+        ref: "Comic",
+      },
+    ],
     role: {
-        type: String,
-        enum: ['admin', 'user'],
-        default: 'user'
+      type: String,
+      lowercase: true,
+      required: true,
+      enum: ["user", "admin"],
+      default: "user",
     },
     deleted: {
-        type: Boolean,
-        default: false
-    }
-}, {timestamps: true})
+      type: Boolean,
+      default: false,
+    },
+  },
+  { timestamps: true }
+);
 
-const User = model('User', userSchema)
-module.exports = User;
+const User = model("User", userSchema);
+module.exports = User;
