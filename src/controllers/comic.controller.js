@@ -8,25 +8,26 @@ class Controller {
     async addComic(req, res) {
         const body = req.body;
         //check to see if a comic with same name exists
-        const existingComic = await getComic({name: body.name});
-        //sends an error if the name exists
-        if(existingComic) {
-            return res.status(409)
-            .send({
-                message: "Name already exists",
-                success: false
-            });
-        }
+        const existingComic = await getComic(body.title);
+        console.log(existingComic)
+        // sends an error if the name exists
+        // if(existingComic) {
+        //     return res.status(409)
+        //     .send({
+        //         message: "Name already exists",
+        //         success: false
+        //     });
+        // }
 
         //validates the categoryId
         const {categoryId} = body;
-        // const _category = await category.find({ _id: categoryId, deleted: false });
-        // if (!(_category)) {
-        //     return res.status(404).send({
-        //     success: false,
-        //     message: "CategoryId doesn't exist"
-        //     });
-        // }
+        const _category = await category.find({ _id: categoryId, deleted: false });
+        if (!(_category)) {
+            return res.status(404).send({
+            success: false,
+            message: "CategoryId doesn't exist"
+            });
+        }
         //checks if the Id passed in is a valid Id
         if(!isObjectId(categoryId)){
             return res.status(404).send({
@@ -46,7 +47,7 @@ class Controller {
     }
 
     //get by Id
-    async getComic(req, res) {
+    async getAComic(req, res) {
         const id = req.params.id;
         //checks if the Id passed in is a valid Id
         if(!isObjectId(id)){
