@@ -36,11 +36,11 @@ const ComicSchema = new Schema({
         trim: true
     },
     releaseDate: {
-        type: Date,
+        type: String,
         required: true,
     },
     price: {
-        type: Number,
+        type: String,
         required: true
     },
     fileUrl: {

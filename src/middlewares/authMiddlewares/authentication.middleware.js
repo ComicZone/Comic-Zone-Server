@@ -1,5 +1,5 @@
-const { verifyToken } = require("../services/jwt.service");
-const user = require("../services/create.service");
+const { verifyToken } = require("../../services/jwt.service");
+const user = require("../../services/create.service");
 
 const authenticate = async (req, res, next) => {
   try {
