@@ -5,6 +5,7 @@ class categoryController {
   //create category
     async addCategory(req, res) {
       const body = req.body;
+      const name = body.name;
 
       //check to see if a category with name exists
       const exsistingCategory = await category.find({name: body.name.toLowerCase()});
@@ -19,7 +20,8 @@ class categoryController {
       }
 
       //create a category if the name doesn't exist
-      const createdCategory = await category.create(body);
+      const createdCategory = await category.create({name});
+      createdCategory.save();
       return res.status(201)
         .send({
             message: "category created successfully",
