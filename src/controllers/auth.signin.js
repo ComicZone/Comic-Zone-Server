@@ -1,4 +1,4 @@
-const user = require("../services/create.service");
+const {user} = require("../services/create.service");
 const {
   hashPassword,
   verifyPassword,
